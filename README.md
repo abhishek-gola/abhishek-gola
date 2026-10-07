@@ -80,4 +80,4 @@ I care a lot about measurement. Most of what I publish comes with a before and a
 pinned cores, and I keep the optimizations that did not work written down next to the
 ones that did.
 
-:mailbox: abhishek.gola@bigvisionllc.com
+:mailbox: abhishekg5422@gmail.com
