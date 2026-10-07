@@ -49,6 +49,32 @@ the covariance. ChArUco, checkerboard and circle-grid ingest, including circle-g
 centroid bias and half-turn checkerboard detection. JSON, PDF and self-contained HTML
 reports. Written, tested and maintained solo.
 
+### Reconstruction, localization and registration
+
+Client work at Big Vision, so the code is not public. The mechanisms are.
+
+**Multi-scene reconstruction merging.** A marker-anchored pipeline that merges
+separately captured reconstructions into one metric frame: ArUco corners define a
+local basis, each scene is rebased into it, and accumulated drift is measured rather
+than assumed. Five rooms merged incrementally with a drift vector recorded at every
+step, COLMAP interop throughout, and a localization path off the finished map trimmed
+to run on a Jetson.
+
+**Dense mapping.** Streaming Gaussian-splat dense mapping layered on a long-sequence
+feed-forward tracker, for sequences long enough that per-chunk reconstruction has to
+be stitched and loop-closed rather than solved in one pass.
+
+**Medical image registration.** A GPU registration engine for whole-slide pathology,
+aligning an annotated 40x reference onto 5x targets at roughly 300 megapixels. I
+replaced a two-engine stained/unstained branch and the stain-detection step feeding it
+with a single stain-agnostic path, diagnosed and fixed a systematic alignment offset,
+folded fiducial and board tolerance into the solve, and brought the runtime under 80
+seconds. Deployed as a queue-driven service.
+
+**SLAM, hands on.** ORB-SLAM3, ElasticFusion, ACE Zero and Depth Pro built, modified
+and run against EuRoC and my own captures, with Kalibr for intrinsics and IMU
+extrinsics.
+
 ### In OpenCV
 
 - **[DISK learned feature extractor](https://github.com/opencv/opencv/pull/29073)** in
@@ -135,4 +161,4 @@ reports OpenCV behind on four models out of six. calibsense will tell you it can
 make the forecast you asked for. I keep the optimizations that did not work written
 down next to the ones that did.
 
-:mailbox: abhishek.gola@bigvisionllc.com
+:mailbox: abhishekg5422@gmail.com
