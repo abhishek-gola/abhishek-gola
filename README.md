@@ -29,8 +29,6 @@ So far that's **135 merged pull requests** across the OpenCV organisation and **
 
 ### Reconstruction, localization and sensor calibration
 
-Client work at Big Vision, so the code is not public. The mechanisms are.
-
 **Indoor reconstruction and localization.** Architected a room-by-room system: each
 room reconstructed as its own sub-map, then registered into a single metric world
 frame by solving the inter-room SE(3) extrinsics against a defined global origin.
