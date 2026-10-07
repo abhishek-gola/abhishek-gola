@@ -58,13 +58,6 @@ extract a collision mesh from it, apply physics, then place generative assets
 (TRELLIS, served over an MCP server) and navigating agents at correct metric scale
 for point-to-point traversal.
 
-**Medical image registration.** A GPU registration engine for whole-slide pathology,
-aligning an annotated 40x reference onto 5x targets at roughly 300 megapixels. I
-replaced a two-engine stained/unstained branch and the stain-detection step feeding
-it with a single stain-agnostic path, diagnosed and fixed a systematic alignment
-offset, folded fiducial and board tolerance into the solve, and brought the runtime
-under 80 seconds. Deployed as a queue-driven service.
-
 **The stack, hands on.** ORB-SLAM3, COLMAP, MASt3R, VGGT, Pi-Long, LightGlue,
 Open3D, ElasticFusion, ACE Zero, Depth Pro, Kalibr. Built, modified and run against
 EuRoC and my own captures, not just imported.
