@@ -2,10 +2,11 @@
 
 I work on two things.
 
-**3D perception.** Reconstruction, localization, registration, SLAM. Merging
-separately captured scenes into one metric frame with the drift measured rather than
-assumed. Dense mapping over sequences too long to solve in one pass. Registering
-300-megapixel pathology slides to sub-millimetre tolerance. And
+**3D perception.** Reconstruction, localization, visual-inertial fusion and sensor
+calibration. A room-by-room indoor system that registers per-room sub-maps into a
+single metric world frame, under 1 degree and 1.5 cm localization error across a full
+multi-room home. Monocular video fused with IMU for scale-consistent, gravity-aligned
+tracking. Road footage turned into a navigable physics simulation. And
 [calibsense](https://github.com/calibsense/calibsense), which computes what a camera
 calibration is actually worth in millimetres instead of reporting a reprojection
 error that cannot answer the question.
@@ -24,7 +25,49 @@ So far that's **135 merged pull requests** across the OpenCV organisation and **
 
 ---
 
-## Geometric vision and measurement
+## 3D perception
+
+### Reconstruction, localization and sensor calibration
+
+Client work at Big Vision, so the code is not public. The mechanisms are.
+
+**Indoor reconstruction and localization.** Architected a room-by-room system: each
+room reconstructed as its own sub-map, then registered into a single metric world
+frame by solving the inter-room SE(3) extrinsics against a defined global origin.
+**Under 1 degree rotation and 1.5 cm position error across a full multi-room home.**
+ArUco fiducials supply known-geometry ground truth, chunk-wise 3D-3D correspondence
+and multi-view fusion bring partial scans into one coordinate frame (Open3D), and
+drift is measured at every merge step rather than assumed.
+
+**Visual-inertial.** Monocular video fused with accelerometer and gyroscope streams
+for scale-consistent, drift-corrected tracking: camera-to-IMU extrinsics,
+cross-sensor time synchronisation, gravity-aligned world frames. Extended with
+feed-forward DNN SLAM (VGGT, Pi-Long) for the low-texture indoor scenes where
+feature-based tracking gives up.
+
+**Sensor and calibration feasibility.** I own the question that comes before the
+build: which camera and IMU configuration can actually hit a stated accuracy target.
+Then the calibration itself, intrinsics, lens distortion models, multi-camera rig
+extrinsics, multi-sensor alignment, with drift and noise characterised against both
+reprojection error and fiducial ground truth, and reprojection-error thresholds set
+as the acceptance gate for everything downstream.
+
+**Video to simulation.** Road capture footage in, navigable simulation out: recover
+intrinsics and per-frame extrinsics, reconstruct the scene as 3D Gaussian splats,
+extract a collision mesh from it, apply physics, then place generative assets
+(TRELLIS, served over an MCP server) and navigating agents at correct metric scale
+for point-to-point traversal.
+
+**Medical image registration.** A GPU registration engine for whole-slide pathology,
+aligning an annotated 40x reference onto 5x targets at roughly 300 megapixels. I
+replaced a two-engine stained/unstained branch and the stain-detection step feeding
+it with a single stain-agnostic path, diagnosed and fixed a systematic alignment
+offset, folded fiducial and board tolerance into the solve, and brought the runtime
+under 80 seconds. Deployed as a queue-driven service.
+
+**The stack, hands on.** ORB-SLAM3, COLMAP, MASt3R, VGGT, Pi-Long, LightGlue,
+Open3D, ElasticFusion, ACE Zero, Depth Pro, Kalibr. Built, modified and run against
+EuRoC and my own captures, not just imported.
 
 ### calibsense
 
@@ -55,32 +98,6 @@ Hand-eye calibration with board-tolerance and robot-repeatability terms folded i
 the covariance. ChArUco, checkerboard and circle-grid ingest, including circle-grid
 centroid bias and half-turn checkerboard detection. JSON, PDF and self-contained HTML
 reports. Written, tested and maintained solo.
-
-### Reconstruction, localization and registration
-
-Client work at Big Vision, so the code is not public. The mechanisms are.
-
-**Multi-scene reconstruction merging.** A marker-anchored pipeline that merges
-separately captured reconstructions into one metric frame: ArUco corners define a
-local basis, each scene is rebased into it, and accumulated drift is measured rather
-than assumed. Five rooms merged incrementally with a drift vector recorded at every
-step, COLMAP interop throughout, and a localization path off the finished map trimmed
-to run on a Jetson.
-
-**Dense mapping.** Streaming Gaussian-splat dense mapping layered on a long-sequence
-feed-forward tracker, for sequences long enough that per-chunk reconstruction has to
-be stitched and loop-closed rather than solved in one pass.
-
-**Medical image registration.** A GPU registration engine for whole-slide pathology,
-aligning an annotated 40x reference onto 5x targets at roughly 300 megapixels. I
-replaced a two-engine stained/unstained branch and the stain-detection step feeding it
-with a single stain-agnostic path, diagnosed and fixed a systematic alignment offset,
-folded fiducial and board tolerance into the solve, and brought the runtime under 80
-seconds. Deployed as a queue-driven service.
-
-**SLAM, hands on.** ORB-SLAM3, ElasticFusion, ACE Zero and Depth Pro built, modified
-and run against EuRoC and my own captures, with Kalibr for intrinsics and IMU
-extrinsics.
 
 ### In OpenCV
 
