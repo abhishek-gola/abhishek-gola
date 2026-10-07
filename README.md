@@ -1,15 +1,22 @@
 ## Abhishek Gola
 
-Two things, mostly. I make OpenCV's inference engine fast, and I make camera
-calibration report what a measurement is actually worth. Both are the same problem
-wearing different clothes: a number everyone quotes, that does not mean what they
-think it means.
+I work on two things.
 
-Maintainer at [OpenCV](https://github.com/opencv/opencv), where I work on the DNN
-engine and review the point cloud and SLAM module. Author of
+**3D perception.** Reconstruction, localization, registration, SLAM. Merging
+separately captured scenes into one metric frame with the drift measured rather than
+assumed. Dense mapping over sequences too long to solve in one pass. Registering
+300-megapixel pathology slides to sub-millimetre tolerance. And
 [calibsense](https://github.com/calibsense/calibsense), which computes what a camera
-calibration is worth in millimetres instead of reporting a reprojection error that
-cannot answer the question.
+calibration is actually worth in millimetres instead of reporting a reprojection
+error that cannot answer the question.
+
+**Inference performance.** I'm a maintainer at
+[OpenCV](https://github.com/opencv/opencv), working inside the DNN engine on graph
+architecture, ONNX operator coverage, and CPU and CUDA speed. I also review the
+point cloud and SLAM module.
+
+The habit that runs through both is worth more than either: measure it, publish the
+number that came back, and say so when the data does not support the claim.
 
 <!--STATS:start-->
 So far that's **135 merged pull requests** across the OpenCV organisation and **174** more reviewed.
