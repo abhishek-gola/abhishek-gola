@@ -1,6 +1,6 @@
 ## Abhishek Gola
 
-**Computer Vision Engineer · OpenCV Maintainer**
+**Senior Computer Vision Engineer · OpenCV Maintainer**
 
 I build **3D perception systems** and make **inference engines faster**. My work spans SLAM, reconstruction, camera–IMU calibration, ONNX operator coverage, and CPU/CUDA optimization.
 
