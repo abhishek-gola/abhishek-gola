@@ -15,7 +15,7 @@ I build **3D perception systems** and make **inference engines faster**. My work
 Across both areas, I work the same way: measure the result, publish it, and state clearly when the evidence does not support a claim.
 
 <!--STATS:start-->
-So far that's **135 merged pull requests** across the OpenCV organisation and **174** more reviewed.
+So far that's **137 merged pull requests** across the OpenCV organisation and **258** more reviewed.
 <!--STATS:end-->
 
 ---
