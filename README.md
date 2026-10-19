@@ -15,7 +15,7 @@ I build **3D perception systems** and make **inference engines faster**. My work
 Across both areas, I work the same way: measure the result, publish it, and state clearly when the evidence does not support a claim.
 
 <!--STATS:start-->
-So far that's **137 merged pull requests** across the OpenCV organisation and **258** more reviewed.
+So far that's **139 merged pull requests** across the OpenCV organisation and **329** more reviewed.
 <!--STATS:end-->
 
 ---
@@ -75,7 +75,7 @@ CPU results were measured on an i9-14900KS with threads pinned to P-cores. Each 
 ### ONNX coverage
 
 <!--ONNX:start-->
-OpenCV currently passes **87%** of the 1792-test ONNX conformance suite (1552 of 1792),
+OpenCV currently passes **87%** of the 1792-test ONNX conformance suite (1563 of 1792),
 <!--ONNX:end-->
 up from 37% in September 2025, when I imported the complete suite and exposed the cases the earlier test set had skipped.
 
