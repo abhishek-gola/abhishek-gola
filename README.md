@@ -5,7 +5,7 @@
 I'm an OpenCV maintainer working on the DNN engine, execution architecture, ONNX operator support, and CPU/CUDA performance. As a Senior Computer Vision Engineer at Bigvision, I also build 3D perception systems for reconstruction, localization, and camera–IMU calibration.
 
 <!--STATS:start-->
-So far that's **140 merged pull requests** across the OpenCV organisation and **444** more reviewed.
+So far that's **140 merged pull requests** across the OpenCV organisation and **486** more reviewed.
 <!--STATS:end-->
 
 ## Selected OpenCV contributions
@@ -25,7 +25,7 @@ CPU measurements on an Intel i9-14900KS using default thread settings. These are
 ### ONNX coverage
 
 <!--ONNX:start-->
-OpenCV currently passes **89%** of the 1792-test ONNX conformance suite (1589 of 1792),
+OpenCV currently passes **91%** of the 1792-test ONNX conformance suite (1629 of 1792),
 <!--ONNX:end-->
 up from 37% in September 2025, when I imported the complete suite. Subsequent work includes [If](https://github.com/opencv/opencv/pull/27508), [Loop](https://github.com/opencv/opencv/pull/28121), and [Scan](https://github.com/opencv/opencv/pull/29577) operator support.
 
